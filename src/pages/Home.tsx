@@ -11,8 +11,6 @@ import {
   useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Beenhere } from "@mui/icons-material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AppBar from "../components/AppBar";
 
 const Home = () => {
