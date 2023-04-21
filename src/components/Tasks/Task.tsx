@@ -11,6 +11,7 @@ import { FC, useState } from "react";
 import { Edit } from "@mui/icons-material";
 
 import { TaskType } from "../../types";
+import { Link } from "react-router-dom";
 
 const Task: FC<{ task: TaskType }> = ({ task }) => {
   const [open, setOpen] = useState(false);
@@ -60,7 +61,9 @@ const Task: FC<{ task: TaskType }> = ({ task }) => {
           {task.status}
         </Button>
         <IconButton sx={{ marginLeft: "auto" }}>
-          <Edit />
+          <Link to={`/edit/${task.id}`}>
+            <Edit />{" "}
+          </Link>
         </IconButton>
       </CardActions>
     </Card>
