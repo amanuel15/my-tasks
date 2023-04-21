@@ -7,9 +7,7 @@ import {
   Typography,
   IconButton,
   Modal,
-  Paper,
   Step,
-  StepContent,
   StepLabel,
   Stepper,
 } from "@mui/material";

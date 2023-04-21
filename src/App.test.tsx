@@ -44,7 +44,6 @@ describe("AddTask", () => {
   it("does not call the createTask function when the form is submitted with empty title", () => {
     render(<AddTask createTask={createTask} />);
 
-    const titleInput = screen.getByLabelText(/title/i);
     const descriptionInput = screen.getByLabelText(/description/i);
     const addButton = screen.getByRole("button", { name: /add/i });
 
