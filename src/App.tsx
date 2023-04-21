@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import Task from "./pages/Task";
+import Edit from "./pages/Edit";
+import { Container } from "@mui/material";
 
 const router = createBrowserRouter([
   {
@@ -8,13 +9,17 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/task",
-    element: <Task />,
+    path: "/edit/:id",
+    element: <Edit />,
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Container maxWidth="md" style={{ height: "100vh" }}>
+      <RouterProvider router={router} />
+    </Container>
+  );
 }
 
 export default App;

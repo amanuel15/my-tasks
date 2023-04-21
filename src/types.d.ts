@@ -8,3 +8,14 @@ export interface TaskType {
   history: STATUSES[];
   nextSteps: STATUSES[];
 }
+
+export interface CreateTaskType {
+  title: string;
+  description: string;
+}
+
+export interface EditTaskType {
+  title: string;
+  description: string;
+  status: STATUSES;
+}
