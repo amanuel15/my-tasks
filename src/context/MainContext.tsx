@@ -5,14 +5,15 @@ import React, {
   FC,
   PropsWithChildren,
 } from "react";
-import { TaskType } from "../types";
+import { CreateTaskType, EditTaskType, TaskType } from "../types";
 import { STATUSES } from "../constants";
 
 interface MainContextInterface {
   tasks: TaskType[];
   setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
-  createTask: (task: TaskType) => void;
-  editTask: (id: string, task: TaskType) => void;
+  createTask: (task: CreateTaskType) => void;
+  editTask: (id: string, task: EditTaskType) => void;
+  getTask: (id: string) => TaskType;
 }
 
 export const MainContext = createContext<MainContextInterface | null>(null);
@@ -26,7 +27,7 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const createTask = (task: TaskType) => {
+  const createTask = (task: CreateTaskType) => {
     // Check if the task has a valid title
     if (task.title && task.title.trim()) {
       const newTask: TaskType = {
@@ -35,16 +36,16 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
         description: task.description,
         status: STATUSES.ToDo,
         history: [STATUSES.ToDo],
-        nextSteps: getNextSteps(task),
+        nextSteps: getNextSteps({ status: STATUSES.ToDo } as TaskType),
       };
       setTasks((tasks) => [newTask, ...tasks]);
     }
   };
 
-  const editTask = (id: string, task: TaskType) => {
+  const editTask = (id: string, task: EditTaskType) => {
     setTasks((tasks) =>
       tasks.map((oldTask) => {
-        if (task.id === id) {
+        if (oldTask.id === id) {
           if (task.title && task.title.trim()) {
             oldTask.title = task.title;
           }
@@ -54,7 +55,7 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
           if (task.status && task.status !== oldTask.status) {
             oldTask.status = task.status;
             oldTask.history = [task.status, ...oldTask.history];
-            oldTask.nextSteps = getNextSteps(task);
+            oldTask.nextSteps = getNextSteps(task as TaskType);
           }
         }
         return oldTask;
@@ -62,11 +63,17 @@ export const MainProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
+  const getTask = (id: string) => {
+    // Check if the task has a valid title
+    return tasks.find((task) => task.id === id)!;
+  };
+
   const mainContextValue: MainContextInterface = {
     tasks,
     setTasks,
     createTask,
     editTask,
+    getTask,
   };
 
   const getNextSteps = (task: TaskType) => {
