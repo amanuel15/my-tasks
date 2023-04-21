@@ -1,22 +1,5 @@
-/* @media screen and (max-width: 768px) {
-    .add-todo {
-        margin-top: 10px;
-    }
-
-    .todo-text {
-        font-size: 1.3rem !important;
-    }
-
-    .card-content {
-        padding: 12px !important;
-    }
+html,
+body {
+    height: 100%;
+    margin: 0
 }
-
-.card-content {
-    padding: 16px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-} */
